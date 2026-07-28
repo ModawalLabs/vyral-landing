@@ -1,26 +1,240 @@
 @import "tailwindcss";
 
+/* The site is dark-only. `dark:` utilities are driven by the `dark` class on
+   <html> rather than the OS setting, so third-party components that ship
+   dark: variants resolve correctly instead of following the visitor's theme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #07070b;
+  --foreground: #f2f2f7;
+  --muted: #9a9aad;
+  --border: #1e1e2a;
+  --surface: #101018;
+  --brand: #8b6bff;
+  --brand-foreground: #0b0b0f;
+  --brand-soft: #17122b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-marquee: marquee 45s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Track holds two identical copies, so -50% lands exactly one copy along
+   and the loop is seamless. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Entrance easing is a slow-out curve — it settles rather than snaps. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---- Lumina slider ----------------------------------------------------
+   The component only emits class names; these are the styles for them.
+   Scoped under .lumina-slider so nothing leaks into the rest of the page. */
+/* Both share a height so the lazy placeholder reserves exactly the space the
+   slider will occupy — no layout shift when it swaps in. */
+.lumina-frame,
+.lumina-slider {
+  width: 100%;
+  height: min(85vh, 760px);
+  min-height: 30rem;
+}
+
+.lumina-frame {
+  background: #000;
+}
+
+.lumina-slider {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.lumina-slider.loaded {
+  opacity: 1;
+}
+
+.lumina-slider .webgl-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrim keeps the overlaid copy legible over any frame */
+.lumina-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.75),
+    rgb(0 0 0 / 0.25) 45%,
+    transparent 70%
+  );
+}
+
+.lumina-slider .slide-counter {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.lumina-slider .slide-number {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.lumina-slider .slide-total::before {
+  content: "/";
+  margin-right: 0.25rem;
+}
+
+.lumina-slider .slide-content {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 2rem;
+  z-index: 2;
+  max-width: min(38rem, calc(100% - 4rem));
+}
+
+.lumina-slider .slide-title {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.lumina-slider .slide-description {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.7);
+}
+
+.lumina-slider .slides-navigation {
+  position: absolute;
+  right: 2rem;
+  bottom: 2.5rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 12rem;
+}
+
+.lumina-slider .slide-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: rgb(255 255 255 / 0.45);
+  transition: color 0.3s ease;
+}
+
+.lumina-slider .slide-nav-item:hover,
+.lumina-slider .slide-nav-item.active {
+  color: #fff;
+}
+
+.lumina-slider .slide-progress-line {
+  position: relative;
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: rgb(255 255 255 / 0.2);
+  overflow: hidden;
+}
+
+.lumina-slider .slide-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  width: 0;
+  background: #fff;
+  transition: width 0.1s linear;
+}
+
+.lumina-slider .slide-nav-title {
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 767px) {
+  .lumina-slider .slides-navigation {
+    display: none;
+  }
+
+  .lumina-slider .slide-content,
+  .lumina-slider .slide-counter {
+    left: 1.25rem;
+  }
+
+  .lumina-slider .slide-content {
+    bottom: 1.75rem;
+    max-width: calc(100% - 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
