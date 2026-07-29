@@ -238,7 +238,10 @@ export function Hero() {
       {/* Model marquee. Absolute so it pins to the bottom without pulling the
           centred hero copy upward. */}
       <div className="absolute inset-x-0 bottom-0 border-t border-white/10 py-4">
-        <div className="[mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        {/* The window is capped below one copy's width (~1490px) so the same
+            model name can never appear twice on screen — with only 8 items a
+            full-bleed rail always shows the wrap-around on desktop. */}
+        <div className="mx-auto max-w-6xl [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
             {[0, 1].map((copy) => (
               <ul
@@ -251,7 +254,7 @@ export function Hero() {
                 {MODELS.map((model) => (
                   <li
                     key={model}
-                    className="flex items-center gap-8 whitespace-nowrap pr-8 text-sm text-white/60"
+                    className="flex items-center gap-12 whitespace-nowrap pr-12 text-sm text-white/60"
                   >
                     {model}
                     <span

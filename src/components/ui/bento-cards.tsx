@@ -2,7 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import React, { useEffect, useRef } from "react"
+import React from "react"
+import { AmbientVideo } from "@/components/ui/ambient-video"
+import {
+  CornerPlusIcons,
+  plusFrameShell,
+} from "@/components/ui/plus-frame"
 import { cn } from "@/lib/utils"
 
 const steps = [
@@ -27,8 +32,7 @@ const steps = [
 ]
 
 // Shared shell so text and media cards read as the same object.
-const cardShell =
-  "relative border border-dashed border-zinc-400 dark:border-zinc-700 rounded-lg bg-white dark:bg-zinc-950"
+const cardShell = plusFrameShell
 
 const StepCard: React.FC<{
   className?: string
@@ -69,81 +73,6 @@ const MediaCard: React.FC<{
     </div>
   )
 }
-
-// Same contract as the hero video: preload="none" means nothing downloads
-// until we ask, so reduced-motion users never pay for it.
-const AmbientVideo = ({
-  sources,
-  poster,
-}: {
-  sources: { src: string; type: string }[]
-  poster: string
-}) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
-
-    const sync = () => {
-      if (motion.matches) {
-        video.pause()
-        video.currentTime = 0
-        return
-      }
-      video.muted = true
-      video.play().catch(() => {})
-    }
-
-    sync()
-    motion.addEventListener("change", sync)
-    return () => motion.removeEventListener("change", sync)
-  }, [])
-
-  return (
-    <video
-      ref={videoRef}
-      className="absolute inset-0 size-full object-cover"
-      poster={poster}
-      preload="none"
-      muted
-      loop
-      playsInline
-      aria-hidden
-      tabIndex={-1}
-    >
-      {sources.map((source) => (
-        <source key={source.src} src={source.src} type={source.type} />
-      ))}
-    </video>
-  )
-}
-
-const CornerPlusIcons = () => (
-  <>
-    <PlusIcon className="absolute -top-3 -left-3" />
-    <PlusIcon className="absolute -top-3 -right-3" />
-    <PlusIcon className="absolute -bottom-3 -left-3" />
-    <PlusIcon className="absolute -bottom-3 -right-3" />
-  </>
-)
-
-const PlusIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    width={24}
-    height={24}
-    strokeWidth="1"
-    stroke="currentColor"
-    className={`dark:text-white text-black size-6 ${className}`}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-  </svg>
-)
 
 export default function BentoCards() {
   return (

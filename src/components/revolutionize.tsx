@@ -183,7 +183,7 @@ export function Revolutionize() {
   return (
     // Full-bleed wrapper carries the tint; the container inside keeps the
     // gutters aligned with the sections above and below.
-    <section className="bg-surface">
+    <section id="features" className="scroll-mt-24 bg-surface">
       <div className="mx-auto container px-4 py-32 sm:py-48">
         <div className="flex items-end justify-between gap-8">
         <div className="max-w-3xl">
