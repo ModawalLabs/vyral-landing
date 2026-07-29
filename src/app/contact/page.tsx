@@ -51,7 +51,7 @@ export default function ContactPage() {
       {/* Stroke is pure black; opacity is what decides how much of the orange
           shows through. At 0.07 it read as a deeper orange — this is high
           enough to read as black ink. */}
-      <DoodleField className="text-black" opacity={0.25} />
+      <DoodleField className="text-black" opacity={0.1} />
 
       <Reveal className="relative mx-auto w-full max-w-6xl">
         {/* Black slab on the neon field — the same inversion the feature strip
