@@ -6,14 +6,12 @@ import { useEffect, useRef } from "react";
 const POSTER = "/assets/hero/hero-motocross-poster.webp";
 
 const MODELS = [
-  "ByteDance Seedance 2.0",
-  "Google Veo",
-  "Kling 3.0",
-  "MiniMax Hailuo 2.3",
-  "Runway Gen-4.5",
-  "Luma Ray3",
-  "Wan 2.7",
-  "LTX-2.3",
+  "Veo3",
+  "Kling T2V",
+  "Seedance",
+  "Kling",
+  "Happy Horse",
+  "Hunyuan",
 ];
 
 // Generation settings shown above the composer. Icons are stroke-only so they
@@ -238,10 +236,10 @@ export function Hero() {
       {/* Model marquee. Absolute so it pins to the bottom without pulling the
           centred hero copy upward. */}
       <div className="absolute inset-x-0 bottom-0 border-t border-white/10 py-4">
-        {/* The window is capped below one copy's width (~1490px) so the same
-            model name can never appear twice on screen — with only 8 items a
-            full-bleed rail always shows the wrap-around on desktop. */}
-        <div className="mx-auto max-w-6xl [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        {/* The window must stay narrower than one copy (~1314px) MINUS the
+            widest item, or a single name can hang off both edges at once and
+            appear twice. max-w-4xl also lines the rail up with the hero copy. */}
+        <div className="mx-auto max-w-4xl [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
             {[0, 1].map((copy) => (
               <ul
@@ -254,7 +252,10 @@ export function Hero() {
                 {MODELS.map((model) => (
                   <li
                     key={model}
-                    className="flex items-center gap-12 whitespace-nowrap pr-12 text-sm text-white/60"
+                    // Spacing is load-bearing, not just style: one copy of the
+                    // list must stay wider than the masked window or the
+                    // wrap-around shows the same name twice at once.
+                    className="flex items-center gap-20 whitespace-nowrap pr-20 text-sm text-white/60"
                   >
                     {model}
                     <span

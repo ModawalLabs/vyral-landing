@@ -103,8 +103,7 @@ export default function ContactPage() {
                 Talk to us
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted">
-                Tell us what you&apos;re trying to make. We reply within one
-                business day.
+                Tell us what you&apos;re trying to make.
               </p>
 
               {/* TODO(backend): wire to a route handler or form service —

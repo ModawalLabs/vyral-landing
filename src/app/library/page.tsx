@@ -112,7 +112,7 @@ export default function LibraryPage() {
       {/* Row height tracks column width per breakpoint so a 2-col tile lands
           near 16:8 and a 2-row tile near 8:16. grid-flow-row-dense keeps the
           packing tight at column counts other than six. */}
-      <ul className="mt-20 grid grid-flow-row-dense grid-cols-2 auto-rows-[164px] gap-4 sm:grid-cols-4 sm:auto-rows-[140px] md:auto-rows-[172px] lg:grid-cols-6 lg:auto-rows-[152px] xl:auto-rows-[195px]">
+      <ul className="mt-20 grid grid-flow-row-dense grid-cols-2 auto-rows-[167px] gap-6 sm:grid-cols-4 sm:auto-rows-[134px] md:auto-rows-[166px] lg:grid-cols-6 lg:auto-rows-[145px] xl:auto-rows-[188px]">
         {TILES.map((tile, i) => (
           <li
             key={i}
