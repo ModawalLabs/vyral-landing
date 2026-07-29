@@ -29,7 +29,11 @@ export type PricingCardTwoProps = {
   currency?: string;
   periodLabel?: string;
 
-  features: PricingFeature[];
+  /** Optional: pass [] to drop the list entirely. */
+  features?: PricingFeature[];
+
+  /** Prominent block between the price and the feature list. */
+  highlight?: React.ReactNode;
 
   cta?: AnchorOrButton & { label?: string; 'aria-label'?: string };
 
@@ -142,7 +146,8 @@ export default function PricingCardTwo({
   price,
   currency = '$',
   periodLabel = '/month',
-  features,
+  features = [],
+  highlight,
   cta,
   tone = 'blue',
   className,
@@ -211,8 +216,17 @@ export default function PricingCardTwo({
             </span>
           </div>
 
-          {/* features */}
-          <ul className={cn('mt-8 space-y-4', featureListClassName)}>
+          {highlight}
+
+          {/* features — skipped entirely when the list is empty, so the
+              card doesn't carry an 8-unit gap to nothing */}
+          <ul
+            className={cn(
+              'mt-8 space-y-4',
+              features.length === 0 && 'hidden',
+              featureListClassName
+            )}
+          >
             {features.map((f, i) => {
               const ok = f.included !== false;
               return (

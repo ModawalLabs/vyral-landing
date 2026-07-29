@@ -57,7 +57,9 @@ export default function ContactPage() {
           className="overflow-hidden rounded-3xl bg-[#0b0b0f] shadow-2xl shadow-black/30"
           style={{ ["--accent" as string]: NEON_ORANGE }}
         >
-          <div className="grid md:grid-cols-2">
+          {/* 646px = the content-driven height (604px) + 7%. Scoped to md+ so
+              the stacked mobile layout still sizes to its content. */}
+          <div className="grid md:min-h-[646px] md:grid-cols-2">
             {/* ---------- About: video field, copy anchored to the floor ---------- */}
             <div className="relative flex min-h-[440px] flex-col justify-end overflow-hidden border-b border-white/10 p-8 sm:min-h-[540px] sm:p-10 md:border-b-0 md:border-r lg:p-12">
               <AmbientVideo

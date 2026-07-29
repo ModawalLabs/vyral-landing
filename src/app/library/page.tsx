@@ -125,14 +125,14 @@ export default function LibraryPage() {
         ))}
       </ul>
 
-      {/* Same pill as the hero CTA so the primary action looks the same
-          wherever it appears. */}
-      <div className="mt-20 flex justify-center">
+      {/* Text CTA, matching the "View Library" link in the Smarter AI section
+          so the two secondary actions read as the same kind of thing. */}
+      <div className="mt-20 text-center">
         <Link
           href="/#cta"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-white py-3.5 pl-7 pr-6 text-sm font-medium text-black shadow-lg shadow-black/20 transition-transform duration-200 hover:scale-[1.03] active:scale-100"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
         >
-          Start using Vyral
+          Visit Vyral
           <svg
             aria-hidden
             viewBox="0 0 24 24"
