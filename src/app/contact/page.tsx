@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AmbientVideo } from "@/components/ui/ambient-video";
+import { DoodleField } from "@/components/ui/doodle-field";
 
 export const metadata: Metadata = {
   title: "About & Contact",
@@ -40,12 +41,16 @@ export default function ContactPage() {
     <section
       // min-h-screen so the colour reads as the page, not a band. pt clears
       // the fixed header.
-      className="flex min-h-screen items-center px-4 pb-24 pt-32 sm:pb-28 sm:pt-36"
+      className="relative flex min-h-screen items-center overflow-hidden px-4 pb-24 pt-32 sm:pb-28 sm:pt-36"
       style={{
         backgroundImage: `linear-gradient(to bottom, ${NEON_ORANGE}, ${ORANGE_DEEP})`,
       }}
     >
-      <div className="mx-auto w-full max-w-6xl">
+      {/* Ink-on-orange: black at low alpha reads as a deeper orange rather
+          than grey, so the doodles sit in the field instead of on top of it. */}
+      <DoodleField className="text-black" opacity={0.07} />
+
+      <div className="relative mx-auto w-full max-w-6xl">
         {/* Black slab on the neon field — the same inversion the feature strip
             uses, and the only way white form text stays legible here. */}
         <div
