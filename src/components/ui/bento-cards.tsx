@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 import { AmbientVideo } from "@/components/ui/ambient-video"
+import { Reveal } from "@/components/ui/reveal"
 import {
   CornerPlusIcons,
   plusFrameShell,
@@ -79,14 +80,17 @@ export default function BentoCards() {
     <section className="bg-white dark:bg-black dark:bg-transparent">
       <div className="mx-auto container py-32 sm:py-48 px-4">
         {/* Section heading */}
-        <div className="max-w-3xl">
+        <Reveal className="max-w-3xl">
           <h2 className="text-4xl md:text-6xl font-bold text-black dark:text-white">
             Create Viral Videos Faster
           </h2>
-        </div>
+        </Reveal>
 
         {/* Steps read left to right, then the output below them */}
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-4">
+        <Reveal
+          delay={120}
+          className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-4"
+        >
           <StepCard {...steps[0]} className="sm:col-span-2 lg:col-span-2" />
 
           <MediaCard className="sm:col-span-2 lg:col-span-4">
@@ -113,7 +117,9 @@ export default function BentoCards() {
 
             <Link
               href="#cta"
-              className="group mt-6 inline-flex w-fit items-center gap-2 rounded-lg border-2 border-orange-500 bg-white px-6 py-3 text-sm font-medium text-black shadow-lg shadow-black/20 transition-transform duration-200 hover:scale-[1.03] active:scale-100"
+              // Identical to the hero pill — this was the only orange element
+              // on the page and the only rectangular primary button.
+              className="group mt-6 inline-flex w-fit items-center justify-center gap-2 rounded-full bg-white py-3.5 pl-7 pr-6 text-sm font-medium text-black shadow-lg shadow-black/20 transition-transform duration-200 hover:scale-[1.03] active:scale-100"
             >
               Try Vyral Now
               <svg
@@ -140,7 +146,7 @@ export default function BentoCards() {
               className="object-cover"
             />
           </MediaCard>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

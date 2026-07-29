@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { PlusFrame } from "@/components/ui/plus-frame";
+import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
   title: "Library",
@@ -98,7 +99,7 @@ export default function LibraryPage() {
   return (
     // pt clears the fixed header, which no page can sit under.
     <section className="mx-auto container px-4 pb-32 pt-40 sm:pb-48 sm:pt-44">
-      <div className="mx-auto max-w-3xl text-center">
+      <Reveal className="mx-auto max-w-3xl text-center">
         <h1 className="text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
           Library
         </h1>
@@ -107,12 +108,15 @@ export default function LibraryPage() {
           Nothing here was filmed. Every frame started as a sentence — and took
           minutes, not weeks.
         </p>
-      </div>
+      </Reveal>
 
       {/* Row height tracks column width per breakpoint so a 2-col tile lands
           near 16:8 and a 2-row tile near 8:16. grid-flow-row-dense keeps the
           packing tight at column counts other than six. */}
-      <ul className="mt-20 grid grid-flow-row-dense grid-cols-2 auto-rows-[167px] gap-6 sm:grid-cols-4 sm:auto-rows-[134px] md:auto-rows-[166px] lg:grid-cols-6 lg:auto-rows-[145px] xl:auto-rows-[188px]">
+      <Reveal
+        delay={120}
+        className="mt-20 grid grid-flow-row-dense grid-cols-2 auto-rows-[167px] gap-6 sm:grid-cols-4 sm:auto-rows-[134px] md:auto-rows-[166px] lg:grid-cols-6 lg:auto-rows-[145px] xl:auto-rows-[188px]"
+      >
         {TILES.map((tile, i) => (
           <li
             key={i}
@@ -123,7 +127,7 @@ export default function LibraryPage() {
             </PlusFrame>
           </li>
         ))}
-      </ul>
+      </Reveal>
 
       {/* Text CTA, matching the "View Library" link in the Smarter AI section
           so the two secondary actions read as the same kind of thing. */}

@@ -4,6 +4,7 @@ import { Briefcase, User, Users } from "lucide-react";
 import { useState } from "react";
 
 import PricingCard from "@/components/ui/pricing-card-triple";
+import { Reveal } from "@/components/ui/reveal";
 
 type Period = "monthly" | "annual" | "onetime";
 
@@ -86,7 +87,7 @@ export function Plans() {
       id="pricing"
       className="mx-auto container scroll-mt-28 px-4 py-32 sm:py-48"
     >
-      <div className="mx-auto max-w-3xl text-center">
+      <Reveal className="mx-auto max-w-3xl text-center">
         <h2 className="text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
           Plans That Fit Solo to Scale
         </h2>
@@ -95,7 +96,7 @@ export function Plans() {
           Flexible credits and seats whether you&apos;re solo, growing fast, or
           scaling a full creative team — upgrade or pause anytime.
         </p>
-      </div>
+      </Reveal>
 
       {/* Billing switch. role="group" + aria-pressed rather than a radiogroup,
           which would also owe arrow-key navigation. */}
@@ -135,7 +136,10 @@ export function Plans() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-3">
+      <Reveal
+        delay={120}
+        className="mx-auto mt-14 grid max-w-6xl gap-8 md:grid-cols-3"
+      >
         {PLANS.map((plan) => (
           // Wrapper carries the badge so the card component stays untouched.
           // No overflow-hidden anywhere above it, so the pill can straddle
@@ -186,7 +190,7 @@ export function Plans() {
             />
           </div>
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AmbientVideo } from "@/components/ui/ambient-video";
+import { Reveal } from "@/components/ui/reveal";
 
 const SOCIALS = [
   {
@@ -104,7 +105,7 @@ export function SmarterAI() {
     // gutters aligned with the neighbouring sections.
     <section className="bg-surface">
       <div className="mx-auto container px-4 py-32 sm:py-48">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
         <h2 className="text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
           Smarter AI. Lower Costs.
         </h2>
@@ -117,8 +118,9 @@ export function SmarterAI() {
           , you preview the concept, structure, and outcome before AI generates
           the final video — saving time, cost, and guesswork.
         </p>
-      </div>
+      </Reveal>
 
+      <Reveal delay={120}>
       <ol className="mx-auto mt-20 grid max-w-6xl gap-6 text-left md:grid-cols-3">
         {STEPS.map((step) => (
           <li
@@ -232,6 +234,7 @@ export function SmarterAI() {
           </li>
           ))}
         </ol>
+        </Reveal>
 
         {/* Text CTA rather than a button — the section's job is to explain,
             and a filled button here would compete with the pricing CTAs. */}

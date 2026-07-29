@@ -2,6 +2,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { Reveal } from "@/components/ui/reveal";
+
 // Hues sweep the wheel in order, so scrolling the strip reads as one spectrum.
 // Every value is luminous enough that black text clears WCAG AA against it
 // (the magenta is the floor at 6.6:1) — that constraint is why the blues and
@@ -185,7 +187,7 @@ export function Revolutionize() {
     // gutters aligned with the sections above and below.
     <section id="features" className="scroll-mt-24 bg-surface">
       <div className="mx-auto container px-4 py-32 sm:py-48">
-        <div className="flex items-end justify-between gap-8">
+        <Reveal className="flex items-end justify-between gap-8">
         <div className="max-w-3xl">
           <h2 className="text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             Revolutionize Video Creation
@@ -211,7 +213,7 @@ export function Revolutionize() {
             onClick={() => page(1)}
           />
         </div>
-      </div>
+      </Reveal>
 
       <div
         ref={scrollerRef}

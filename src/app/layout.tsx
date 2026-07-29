@@ -43,6 +43,13 @@ export default function RootLayout({
     >
       {/* Header and footer live here so every route shares them */}
       <body className="min-h-full flex flex-col">
+        {/* Scroll-reveal starts hidden; without JS nothing would unhide it.
+            Must live inside <body> — <noscript> is not valid directly under
+            <html> and React flags it as a hydration error. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
+
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

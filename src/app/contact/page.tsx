@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { AmbientVideo } from "@/components/ui/ambient-video";
 import { DoodleField } from "@/components/ui/doodle-field";
+import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
   title: "About & Contact",
@@ -52,7 +53,7 @@ export default function ContactPage() {
           enough to read as black ink. */}
       <DoodleField className="text-black" opacity={0.25} />
 
-      <div className="relative mx-auto w-full max-w-6xl">
+      <Reveal className="relative mx-auto w-full max-w-6xl">
         {/* Black slab on the neon field — the same inversion the feature strip
             uses, and the only way white form text stays legible here. */}
         <div
@@ -173,7 +174,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
