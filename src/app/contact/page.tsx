@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 // Black text clears 6.9:1 on this orange; white would be 2.8:1 and fail.
 const NEON_ORANGE = "#ff5f1f";
 
-// Deeper end of the gradient. Kept above 5:1 against black so the field stays
-// usable if copy is ever placed directly on it.
-const ORANGE_DEEP = "#e04d12";
+// Deeper end of the gradient. This is about as dark as the ramp can go while
+// black text still clears 4.5:1, so the field stays usable if copy is ever
+// placed on it — and it eases the hand-off into the near-black footer below.
+const ORANGE_DEEP = "#cf460e";
 
 const FIELDS = [
   {
@@ -46,9 +47,10 @@ export default function ContactPage() {
         backgroundImage: `linear-gradient(to bottom, ${NEON_ORANGE}, ${ORANGE_DEEP})`,
       }}
     >
-      {/* Ink-on-orange: black at low alpha reads as a deeper orange rather
-          than grey, so the doodles sit in the field instead of on top of it. */}
-      <DoodleField className="text-black" opacity={0.07} />
+      {/* Stroke is pure black; opacity is what decides how much of the orange
+          shows through. At 0.07 it read as a deeper orange — this is high
+          enough to read as black ink. */}
+      <DoodleField className="text-black" opacity={0.25} />
 
       <div className="relative mx-auto w-full max-w-6xl">
         {/* Black slab on the neon field — the same inversion the feature strip

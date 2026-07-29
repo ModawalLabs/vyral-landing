@@ -144,7 +144,10 @@ export function Hero() {
             className="animate-rise mx-auto mt-16 w-[85%] sm:w-[70%]"
             style={{ animationDelay: "500ms" }}
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-white/5 p-[5px] shadow-2xl shadow-black/40 ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150">
+            {/* has-[:focus] collapses the glass frame while the prompt is
+                active, so the panel reads as one solid surface; `group` lets
+                the inner panel match its radius at the same time. */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/20 bg-white/5 p-[5px] shadow-2xl shadow-black/40 ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150 transition-[padding] duration-300 has-[:focus]:p-0">
               {/* Sheen falling from the top edge gives the slab thickness */}
               <div
                 aria-hidden
@@ -164,7 +167,9 @@ export function Hero() {
               {/* Inner panel. Radius is outer 24px minus the 5px inset so the
                   two curves stay concentric. `relative` lifts it above the
                   decorative layers above. */}
-              <div className="relative flex w-full flex-col rounded-[19px] bg-[#2b2b2e] p-3">
+              {/* Radius follows the frame: 24 − 5 inset normally, matching the
+                  outer 24 once the inset collapses to 0. */}
+              <div className="relative flex w-full flex-col rounded-[19px] bg-[#2b2b2e] p-3 transition-[border-radius] duration-300 group-has-[:focus]:rounded-3xl">
                 {/* Generation settings */}
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   {CONTROLS.map((control) => (
@@ -191,7 +196,11 @@ export function Hero() {
                 </div>
 
                 {/* Prompt composer */}
-                <div className="flex items-center gap-2 rounded-xl p-2 pl-4 text-left transition-shadow focus-within:ring-1 focus-within:ring-white/25">
+                {/* No focus ring by request. Safe here because the text caret
+                    is itself a visible focus indicator — a :focus-visible
+                    variant wouldn't have helped, since text inputs match it
+                    on mouse click too. */}
+                <div className="flex items-center gap-2 rounded-xl p-2 pl-4 text-left">
                   <label htmlFor="vyral-prompt" className="sr-only">
                     Describe your Vyral idea
                   </label>
