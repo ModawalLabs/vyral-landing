@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { PlusFrame } from "@/components/ui/plus-frame";
 
 export const metadata: Metadata = {
@@ -55,30 +56,6 @@ const SIZES = {
     "(min-width: 1536px) 240px, (min-width: 1024px) 195px, (min-width: 640px) 145px, 46vw",
 } as const;
 
-function EmptySlot({ label }: { label: string }) {
-  return (
-    <div className="absolute inset-0 grid place-items-center bg-zinc-900 text-zinc-600">
-      <div className="flex flex-col items-center gap-1.5">
-        <svg
-          aria-hidden
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-6"
-        >
-          <rect x="3" y="5" width="18" height="14" rx="2.5" />
-          <circle cx="8.5" cy="10" r="1.4" />
-          <path d="M3.5 17l5-5 4.5 4.5 3-3 4.5 4.5" />
-        </svg>
-        <span className="font-mono text-[10px] tracking-widest">{label}</span>
-      </div>
-    </div>
-  );
-}
-
 /** 80% media / 20% caption: split horizontally for landscape, vertically for portrait. */
 function TileBody({ tile }: { tile: Tile }) {
   const landscape = tile.shape === "landscape";
@@ -104,7 +81,7 @@ function TileBody({ tile }: { tile: Tile }) {
               className="object-cover"
             />
           ) : (
-            <EmptySlot label={landscape ? "16:8" : "8:16"} />
+            <MediaPlaceholder label={landscape ? "16:8" : "8:16"} />
           )}
         </div>
       </div>

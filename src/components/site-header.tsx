@@ -1,18 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "#features", label: "Features" },
-  { href: "/library", label: "Library" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#cta", label: "Contact" },
-];
+import { NAV_LINKS as navLinks } from "@/lib/nav";
+
+// Routes with a light background. The bar's contents are white, so translucent
+// glass over a bright page drops the nav to ~2.8:1 — unreadable. These get an
+// opaque dark bar instead.
+const LIGHT_ROUTES = ["/contact"];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const onLight = LIGHT_ROUTES.includes(pathname);
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4 sm:top-5">
@@ -21,9 +23,11 @@ export function SiteHeader() {
             read as one surface. A pill while collapsed; softens to a rounded
             rect when the mobile menu pushes it open. */}
         <div
-          className={`relative overflow-hidden border border-white/10 bg-white/5 ring-1 ring-inset ring-white/10 backdrop-blur-2xl backdrop-saturate-150 transition-[border-radius] duration-200 ${
-            open ? "rounded-3xl" : "rounded-full"
-          }`}
+          className={`relative overflow-hidden border border-white/10 ring-1 ring-inset ring-white/10 transition-[border-radius] duration-200 ${
+            onLight
+              ? "bg-[#0b0b0f] shadow-lg shadow-black/20"
+              : "bg-white/5 backdrop-blur-2xl backdrop-saturate-150"
+          } ${open ? "rounded-3xl" : "rounded-full"}`}
         >
           {/* Specular highlight along the top bevel */}
           <div
