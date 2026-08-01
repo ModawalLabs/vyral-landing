@@ -98,13 +98,14 @@ export function Hero() {
 
       <div className="relative w-full px-6 pb-24 pt-32 sm:pb-32 sm:pt-40">
         <div className="mx-auto w-full max-w-4xl text-center">
-          {/* Fluid size keeps this on one line at every width — a fixed
-              step scale would overflow the viewport on small phones. */}
+          {/* Two sentences at 32 characters — forcing one line would mean
+              ~20px type on a phone, so it wraps and text-balance splits it
+              evenly at the sentence break. */}
           <h1
-            className="animate-rise whitespace-nowrap text-[clamp(1.75rem,6.5vw,4.5rem)] font-semibold leading-[1.05] tracking-tight text-white"
+            className="animate-rise text-balance text-[clamp(2.25rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-tight text-white"
             style={{ animationDelay: "80ms" }}
           >
-            Next-Gen AI Engine
+            Stop prompting. Start directing.
           </h1>
 
           <p
